@@ -18,6 +18,8 @@
 
 #include "../../include/dynamixel_workbench_toolbox/dynamixel_workbench.h"
 
+static const uint8_t SEED_POSITION_CONTROL_MODE = 0;
+
 static const uint8_t WHEEL_MODE = 1;
 static const uint8_t JOINT_MODE = 2;
 
@@ -692,6 +694,8 @@ bool DynamixelWorkbench::setOperatingMode(uint8_t id, uint8_t index, const char 
     {
       if (!strncmp(model_name, "XL-320", strlen("XL-320")))
         result = writeRegister(id, "Control_Mode", JOINT_MODE, log);
+	  else if (!strncmp(model_name, "SEED_58", strlen("SEED_58")) || !strncmp(model_name, "SEED_67", strlen("SEED_67")))
+        result = writeRegister(id, "Operating_Mode", SEED_POSITION_CONTROL_MODE, log);
       else
         result = writeRegister(id, "Operating_Mode", POSITION_CONTROL_MODE, log);
     }
@@ -813,6 +817,10 @@ bool DynamixelWorkbench::jointMode(uint8_t id, int32_t velocity, int32_t acceler
   else if (getProtocolVersion() == 2.0)
   {
     if (!strncmp(model_name, "XL-320", strlen("XL-320")))
+    {
+      result = writeRegister(id, "Moving_Speed", velocity, log);
+    }
+	else if (!strncmp(model_name, "SEED_58", strlen("SEED_58")) || !strncmp(model_name, "SEED_67", strlen("SEED_67")))
     {
       result = writeRegister(id, "Moving_Speed", velocity, log);
     }

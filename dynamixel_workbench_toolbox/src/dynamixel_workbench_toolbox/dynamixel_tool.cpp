@@ -36,6 +36,9 @@ static const DynamixelModel dynamixel_model_table[] = {
     {RX_24F, "RX-24F"},
     {RX_28, "RX-28"},
     {RX_64, "RX-64"},
+	
+	{SEED_67, "SEED_67"},
+	{SEED_58, "SEED_58"},
 
     {EX_106, "EX-106"},
 

@@ -22,6 +22,10 @@
 #include <stdint.h>
 #include <stddef.h>
 
+#define SEED_58 410
+#define SEED_67 409
+
+
 #define AX_12A     12
 #define AX_12W     300
 #define AX_18A     18

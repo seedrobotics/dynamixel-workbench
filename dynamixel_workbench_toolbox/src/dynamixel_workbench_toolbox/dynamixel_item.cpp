@@ -1323,6 +1323,55 @@ static const ModelInfo info_EXTGripper = {0.01,
                                           1150,
                                           0, 
                                           1.7631835937};
+										  
+										  
+										  
+//---------------------------------------------------------
+// SEED ROBOTICS SERVOS
+//---------------------------------------------------------
+static const ControlItem items_SEED[]{
+    {s_Model_Number, 0, sizeof(s_Model_Number) - 1, 2},
+    {s_Firmware_Version, 2, sizeof(s_Firmware_Version) - 1, 1},
+    {s_ID, 3, sizeof(s_ID) - 1, 1},
+    {s_Baud_Rate, 4, sizeof(s_Baud_Rate) - 1, 1},
+    {s_Return_Delay_Time, 5, sizeof(s_Return_Delay_Time) - 1, 1},
+    {s_CW_Angle_Limit, 6, sizeof(s_CW_Angle_Limit) - 1, 2},
+    {s_CCW_Angle_Limit, 8, sizeof(s_CCW_Angle_Limit) - 1, 2},
+    {s_Temperature_Limit, 11, sizeof(s_Temperature_Limit) - 1, 1}, // unsupported by us but leave it if needed (servo will discard)
+    {s_Min_Voltage_Limit, 12, sizeof(s_Min_Voltage_Limit) - 1, 1}, // unsupported by us but leave it if needed (servo will discard)
+    {s_Max_Voltage_Limit, 13, sizeof(s_Max_Voltage_Limit) - 1, 1}, // unsupported by us but leave it if needed (servo will discard)
+    {s_Max_Torque, 14, sizeof(s_Max_Torque) - 1, 2},  // unsupported by us but leave it if needed (servo will discard). Torque limit is supported at pos 34
+    {s_Status_Return_Level, 16, sizeof(s_Status_Return_Level) - 1, 1},
+    {s_Alarm_LED, 17, sizeof(s_Alarm_LED) - 1, 1}, // unsupported by us but leave it if needed (servo will discard)
+    {s_Shutdown, 18, sizeof(s_Shutdown) - 1, 1},
+    {s_Torque_Enable, 24, sizeof(s_Torque_Enable) - 1, 1},
+    {s_LED, 25, sizeof(s_LED) - 1, 1}, // unsupported by us but leave it if needed (servo will discard)
+    {s_Position_D_Gain, 26, sizeof(s_Position_D_Gain) - 1, 1},
+    {s_Position_I_Gain, 27, sizeof(s_Position_I_Gain) - 1, 1},
+    {s_Position_P_Gain, 28, sizeof(s_Position_P_Gain) - 1, 1},
+    {s_Goal_Position, 30, sizeof(s_Goal_Position) - 1, 2},
+    {s_Moving_Speed, 32, sizeof(s_Moving_Speed) - 1, 2},
+    {s_Torque_Limit, 34, sizeof(s_Torque_Limit) - 1, 2},
+    {s_Present_Position, 36, sizeof(s_Present_Position) - 1, 2},
+    {s_Present_Speed, 38, sizeof(s_Present_Speed) - 1, 2},
+    {s_Present_Load, 40, sizeof(s_Present_Load) - 1, 2},
+    {s_Present_Voltage, 42, sizeof(s_Present_Voltage) - 1, 1},
+    {s_Present_Temperature, 43, sizeof(s_Present_Temperature) - 1, 1},
+    {s_Registered, 44, sizeof(s_Registered) - 1, 1},
+    {s_Moving, 46, sizeof(s_Moving) - 1, 1},
+    {s_Hardware_Error_Status, 47, sizeof(s_Hardware_Error_Status) - 1, 1},
+    {s_Present_Current, 68, sizeof(s_Present_Current) - 1, 2},
+    {s_Operating_Mode, 98, sizeof(s_Operating_Mode) - 1, 1}};
+#define COUNT_SEED_ITEMS (sizeof(items_SEED) / sizeof(items_SEED[0]))
+
+static const ModelInfo info_SEED = {0.11,
+                                  0,
+                                  2048,
+                                  4095,
+                                  -3.14,
+                                  3.14};
+									  
+										  
 
 //=========================================================
 // Get Servo control table for the specified servo type
@@ -1343,6 +1392,11 @@ const ControlItem *DynamixelItem::getControlTable(uint16_t model_number)
     control_table = items_RX;
     the_number_of_item = COUNT_RX_ITEMS;
   }
+  else if (num == SEED_58 || num == SEED_67)
+  {
+    control_table = items_SEED;
+    the_number_of_item = COUNT_SEED_ITEMS;
+  }  
   else if (num == EX_106)
   {
     control_table = items_EX;
@@ -1460,6 +1514,10 @@ const ModelInfo *DynamixelItem::getModelInfo(uint16_t model_number)
   {
     info = &info_RX;
   }
+  else if (num == SEED_58 || num == SEED_67)
+  {
+     info = &info_SEED;
+  }  
   else if (num == EX_106)
   {
     info = &info_EX;
