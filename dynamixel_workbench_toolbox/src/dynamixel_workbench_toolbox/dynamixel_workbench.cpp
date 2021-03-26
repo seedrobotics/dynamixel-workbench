@@ -694,7 +694,7 @@ bool DynamixelWorkbench::setOperatingMode(uint8_t id, uint8_t index, const char 
     {
       if (!strncmp(model_name, "XL-320", strlen("XL-320")))
         result = writeRegister(id, "Control_Mode", JOINT_MODE, log);
-	  else if (!strncmp(model_name, "SEED_58", strlen("SEED_58")) || !strncmp(model_name, "SEED_67", strlen("SEED_67")))
+	  else if (!strncmp(model_name, "SEED", strlen("SEED")))
         result = writeRegister(id, "Operating_Mode", SEED_POSITION_CONTROL_MODE, log);
       else
         result = writeRegister(id, "Operating_Mode", POSITION_CONTROL_MODE, log);
@@ -820,7 +820,7 @@ bool DynamixelWorkbench::jointMode(uint8_t id, int32_t velocity, int32_t acceler
     {
       result = writeRegister(id, "Moving_Speed", velocity, log);
     }
-	else if (!strncmp(model_name, "SEED_58", strlen("SEED_58")) || !strncmp(model_name, "SEED_67", strlen("SEED_67")))
+	else if (!strncmp(model_name, "SEED", strlen("SEED")))
     {
       result = writeRegister(id, "Moving_Speed", velocity, log);
     }
@@ -1261,7 +1261,8 @@ int32_t DynamixelWorkbench::convertVelocity2Value(uint8_t id, float velocity)
     if (strncmp(getModelName(id), "AX", strlen("AX")) == 0 ||
         strncmp(getModelName(id), "RX", strlen("RX")) == 0 ||
         strncmp(getModelName(id), "EX", strlen("EX")) == 0 ||
-        strncmp(getModelName(id), "MX", strlen("MX")) == 0)
+        strncmp(getModelName(id), "MX", strlen("MX")) == 0 ||
+		strncmp(getModelName(id), "SEED", strlen("SEED")) == 0)
     {
       if (velocity == 0.0f) value = 0;
       else if (velocity < 0.0f) value = (velocity / (model_info->rpm * RPM2RADPERSEC));
@@ -1304,7 +1305,8 @@ float DynamixelWorkbench::convertValue2Velocity(uint8_t id, int32_t value)
     if (strncmp(getModelName(id), "AX", strlen("AX")) == 0 ||
         strncmp(getModelName(id), "RX", strlen("RX")) == 0 ||
         strncmp(getModelName(id), "EX", strlen("EX")) == 0 ||
-        strncmp(getModelName(id), "MX", strlen("MX")) == 0)
+        strncmp(getModelName(id), "MX", strlen("MX")) == 0 ||
+		strncmp(getModelName(id), "SEED", strlen("SEED")) == 0)
     {
       if (value == 1023 || value == 0) velocity = 0.0f;
       else if (value > 0 && value < 1023) velocity = value * model_info->rpm * RPM2RADPERSEC;
@@ -1352,7 +1354,8 @@ int16_t DynamixelWorkbench::convertCurrent2Value(uint8_t id, float current)
       CURRENT_UNIT = 16.11328f;
       return (current / CURRENT_UNIT);
     }
-    else if (strncmp(getModelName(id), "PRO-PLUS", strlen("PRO-PLUS")) == 0)
+    else if (strncmp(getModelName(id), "PRO-PLUS", strlen("PRO-PLUS")) == 0 ||
+			(strncmp(model_name, "SEED", strlen("SEED")) == 0) 
     {
       CURRENT_UNIT = 1.0f;
       return (current / CURRENT_UNIT);
@@ -1399,7 +1402,8 @@ float DynamixelWorkbench::convertValue2Current(uint8_t id, int16_t value)
       current = (int16_t)value * CURRENT_UNIT;
       return current;
     }
-    else if (strncmp(getModelName(id), "PRO-PLUS", strlen("PRO-PLUS")) == 0)
+    else if (strncmp(getModelName(id), "PRO-PLUS", strlen("PRO-PLUS")) == 0 ||
+			 strncmp(model_name, "SEED", strlen("SEED")) == 0)
     {
       CURRENT_UNIT = 1.0f;
       current = (int16_t)value * CURRENT_UNIT;

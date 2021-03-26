@@ -1368,8 +1368,8 @@ static const ModelInfo info_SEED = {0.11,
                                   0,
                                   2048,
                                   4095,
-                                  -3.14,
-                                  3.14};
+                                  -3.1416,  // round it up to .1416 to make sure we cover bounds checks where Pi has 4 or 5 digits
+                                  3.1416};  // round it up to .1416 to make sure we cover bounds checks where Pi has 4 or 5 digits
 									  
 										  
 
