@@ -1355,7 +1355,7 @@ int16_t DynamixelWorkbench::convertCurrent2Value(uint8_t id, float current)
       return (current / CURRENT_UNIT);
     }
     else if (strncmp(getModelName(id), "PRO-PLUS", strlen("PRO-PLUS")) == 0 ||
-			(strncmp(model_name, "SEED", strlen("SEED")) == 0) 
+			(strncmp(model_name, "SEED", strlen("SEED")) == 0) ) 
     {
       CURRENT_UNIT = 1.0f;
       return (current / CURRENT_UNIT);

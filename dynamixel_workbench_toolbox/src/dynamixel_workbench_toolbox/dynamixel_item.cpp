@@ -1353,7 +1353,8 @@ static const ControlItem items_SEED[]{
     {s_Moving_Speed, 32, sizeof(s_Moving_Speed) - 1, 2},
     {s_Torque_Limit, 34, sizeof(s_Torque_Limit) - 1, 2},
     {s_Present_Position, 36, sizeof(s_Present_Position) - 1, 2},
-    {s_Present_Speed, 38, sizeof(s_Present_Speed) - 1, 2},
+    {s_Present_Velocity, 38, sizeof(s_Present_Velocity) - 1, 2},
+	{s_Present_Speed, 38, sizeof(s_Present_Speed) - 1, 2},   // for whatever reason there are present VELOCITY and a present SPEED placeholders (?!)
     {s_Present_Load, 40, sizeof(s_Present_Load) - 1, 2},
     {s_Present_Voltage, 42, sizeof(s_Present_Voltage) - 1, 1},
     {s_Present_Temperature, 43, sizeof(s_Present_Temperature) - 1, 1},
